@@ -667,6 +667,64 @@ function sgis_populations(sigunguCode){
 	map.addLayer(vector);
 }
 
+/**
+ * v월드 레이어 선택부분
+ * URL : 
+ * 참고사항 : select_wms 선택값 변경시 해당레이어 추가한다.
+ * 
+ * 
+ */
+
+ $(function(){
+	$(document).on('change','#select_wms',function(){
+		let this_val = $(this).val();
+		//console.log($(this).find("option[value='" + $(this).val() + "']").text()); 선택된 옵션의 text
+		let this_layer = $(this).find("option[value='" + $(this).val() + "']").text();
+		let this_title = $(this).prev().text();
+		$('[name=TYPENAME]').val(this_val.toLowerCase());
+		//선택시 레이어 삭제
+		map.getLayers().forEach(function(layer){
+			 if(layer.get("name")==this_layer){
+			 	map.removeLayer(layer);//기존결과 삭제
+			 }
+		})
+		let code = map.getView().getProjection().getCode();
+		
+		let layer_tile = new ol.layer.Tile({
+	        //title:  'v월드',//this_title,
+	        id: this_val,
+	        //name: 'wms_theme', //vmap 올린 레이어를 삭제하거나 수정,변경할때 접근할 name 속성
+	        projection: code,
+	        extent: map.getView().getProjection().getExtent(), //[-20037508.34, -20037508.34, 20037508.34, 20037508.34]
+	        //maxZoom: 21,
+	        //minZoom: 10,
+	        tilePixelRatio: 1,
+	        tileSize: [512, 512],
+
+	        source: new ol.source.TileWMS({
+		    url: "https://api.vworld.kr/req/wms?",
+	            params: {
+	                LAYERS: this_val.toLowerCase(),
+	                STYLES: this_val.toLowerCase(),
+	                CRS: code,
+	                apikey: "D8DA2C77-00ED-3DE3-8252-E183BB2F1B6A",
+	                FORMAT: "image/png",
+	                WIDTH:512,
+	                HEIGHT:512
+	            },
+		    }),
+            opacity:0.3,
+		});
+    
+		layer_tile.setZIndex(5);
+		layer_tile.set("name",this_layer);
+        	layer_tile.set("id",this_layer);
+		map.addLayer(layer_tile);
+		let imgSrc = "https://api.vworld.kr/req/image?key=C4C4FE9D-271A-3D7D-9DBE-BF7030912E04&service=image&request=GetLegendGraphic&format=png&type=ALL&layer="+this_val+"&style="+this_val
+        	$('#wms_image').append("<img src='"+imgSrc+"' alt ='"+this_title+"' >");
+		
+	});//'change'
+})
 //vworld wfs
 function vworld_wfs(evt){
     map.getLayers().forEach(function(layer){
