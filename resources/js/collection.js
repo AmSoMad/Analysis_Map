@@ -304,30 +304,25 @@ function sgis_populations(sigunguCode){
 	                LAYERS: this_val.toLowerCase(),
 	                STYLES: this_val.toLowerCase(),
 	                CRS: code,
-	                apikey: "C4C4FE9D-271A-3D7D-9DBE-BF7030912E04",
-                  //key: "D8DA2C77-00ED-3DE3-8252-E183BB2F1B6A",
-
-	                //DOMAIN:"http://seongjang.com",
-	                //title: this_title,
-					        //title: 'v월드',
+	                apikey: "D8DA2C77-00ED-3DE3-8252-E183BB2F1B6A",
+                  	//key: "D8DA2C77-00ED-3DE3-8252-E183BB2F1B6A",
 	                FORMAT: "image/png",
 	                WIDTH:512,
 	                HEIGHT:512
 	            },
-				//name:this_val,
-		
+
 		    }),
-            opacity:0.3,
+            	opacity:0.3,
 		});
     
 		layer_tile.setZIndex(5);
 		layer_tile.set("name",this_layer);
-        layer_tile.set("id",this_layer);
+        	layer_tile.set("id",this_layer);
 		map.addLayer(layer_tile);
 		let imgSrc = "https://api.vworld.kr/req/image?key=C4C4FE9D-271A-3D7D-9DBE-BF7030912E04&service=image&request=GetLegendGraphic&format=png&type=ALL&layer="+this_val+"&style="+this_val
-		//$('#wms_image').html("<img src='"+imgSrc+"' alt ='"+this_title+"' >");
-        $('#wms_image').append("<img src='"+imgSrc+"' alt ='"+this_title+"' >");
-		//wms_imageTest.innerHTML +=  "<img src='"+imgSrc+"' alt ='"+this_title+"의 범례이미지' >";
+	
+        	$('#wms_image').append("<img src='"+imgSrc+"' alt ='"+this_title+"' >");
+	
 		
 	});//'change'
 })
