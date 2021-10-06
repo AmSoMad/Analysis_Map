@@ -1,10 +1,12 @@
 # Portfolio 
 [구현중인화면보기][https://amsomad.github.io/portfolio/]
 ## 뚝딱뚝딱 제작중.
+### geoserver를 통한 데이터들은 비공개가 많았다..
 
-- 엔진
+- 사용된 라이브러리 
   - OpenLayers6 (현재 6.8.1 까지나왔다)
   - OL-ext
+  - 
 
 - 활용API
   - VWorld
