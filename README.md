@@ -5,8 +5,11 @@
 ### ㅠㅠ 망..
 
 - 사용된 라이브러리 
-  - OpenLayers6 (현재 6.8.1 까지나왔다)
-  - OL-ext
+  - [OpenLayers6][https://openlayers.org/] (현재 6.8.1 까지나왔다)
+  - [OL-ext][https://viglino.github.io/ol-ext/]
+  - [다음주소api][https://postcode.map.daum.net/guide]
+  - [pdfobject][https://pdfobject.com/]
+  - [bootstrap5][https://getbootstrap.com/] (5버전부터 jQuery 없이 구동, 일부 명칭이 바뀜)
   - 
 
 - 활용API
