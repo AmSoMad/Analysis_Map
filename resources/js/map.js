@@ -301,7 +301,7 @@
       interactions: ol.interaction.defaults({ altShiftDragRotate:true, pinchRotate:true }),
       controls: ol.control.defaults().extend(
       [
-          new ol.control.FullScreen({source:'fullscreen',}),
+          //new ol.control.FullScreen({source:'fullscreen',}),
           new ol.control.ScaleLine({units: 'metric'}),
           overviewMapControl,
           // new ol.control.LayerPopup({reverse: false}),
