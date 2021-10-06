@@ -348,7 +348,7 @@
     });
     map.addInteraction(select);
 
-     /**
+/*
  * 줌아웃 인 이벤트
  * 기능 : 해당주소를 5179좌표로 변환하여 알려준다.
  * 참고사항 : SGIS api 활용 단 주소가 옛날 체계를 사용함(법정동도 껴있음)
@@ -395,7 +395,8 @@ function flyTo(location, done) {
   }
 
 
-  /**
+/*
+ *
  * SGIS 지오코딩
  * 기능 : 해당주소를 5179좌표로 변환하여 알려준다.
  * 참고사항 : SGIS api 활용 단 주소가 옛날 체계를 사용함(법정동도 껴있음)
@@ -614,13 +615,11 @@ function sgis_populations(sigunguCode){
 }
 
 /**
- * v월드 레이어 선택부분
+ * v월드 레이어
  * URL : 
- * 참고사항 : select_wms 선택값 변경시 해당레이어 추가한다.
- * 
- * 
+ * 참고사항 : select_wms 선택값 변경시 해당레이어 추가한다. 
+ * 해당 레이어는 WMS방식으로 map.on click에서 WFS 제어
  */
-
  $(function(){
 	$(document).on('change','#select_wms',function(){
 		let this_val = $(this).val();
@@ -677,7 +676,12 @@ function sgis_populations(sigunguCode){
 	});//'change'
 })
 
-//vworld wfs
+/**
+ * v월드 레이어 WFS 클릭이벤트
+ * URL : 
+ * 참고사항 : V월드 레이어의 WMS 레이어 클릭시
+ * 해당되는 부분의 Feature만 추가된다. 해당 레이어의정보도 포함
+ */
 function vworld_wfs(evt){
     map.getLayers().forEach(function(layer){
         // if(layer.get("name")=="시군구"){}
@@ -736,7 +740,8 @@ function vworld_wfs(evt){
 /**
  * 주소검색 클릭시 상세주소입력창 다음주소api활용
  * 기능 : 주소검색시 시군구코드 가 담겨있다.
- * 참고사항 : 레이어를 추가할경우 항상 이름을 붙여줄것 
+ * 참고사항 : 정보가 수시로 갱신된다, 필지는 있으나 건축물이없을경우 도로명주소가 없다,
+ * 구주소로 검색을해도 신주소로 나온다. DB데이터와 충돌 필지번호로 찾아야한다. 
  */
  $("#srch_address").on("click", function(){
      //아래 코드처럼 테마 객체를 생성합니다.(color값은 #F00, #FF0000 형식으로 입력하세요.)
