@@ -160,6 +160,17 @@
         content: "✖";
       }
       /* 팝업끝 */
+
+      .ol-overlay.menu
+      {	width: 30%;
+       background: #fff;
+       color: #333;
+       box-shadow: 0px 0px 5px #000;
+       padding: 0.5em;
+       -webkit-transition: all 0.25s;
+       transition: all 0.25s;
+
+      }
       /* style the close box */
       .ol-overlay.menu .ol-closebox{	
         color: #009B77;
@@ -197,4 +208,10 @@
       .btn.bg-gradient-yoonsik:hover {
         background-color: #53B0AE;
         border-color: #53B0AE;
+      }
+
+      #menu
+      {	
+       padding-top: 1.5em;
+       font-size: 0.9em;
       }
