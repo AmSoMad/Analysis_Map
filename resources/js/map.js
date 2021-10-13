@@ -165,16 +165,8 @@
           name: '하이브리드',
           visible: false,
         }),
-
-
-
-
-
-
-
-
-
       ],
+      attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
       visible:true
     });
 
