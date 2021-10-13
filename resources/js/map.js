@@ -106,6 +106,7 @@
           //minResolution: 0,
           //maxResolution: 1400,
           visible: false,
+		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
         new ol.layer.Tile({
           source: new ol.source.XYZ({
@@ -116,6 +117,7 @@
           //minResolution: 0,
           //maxResolution: 1400,
           visible: false,
+		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
         new ol.layer.Tile({
           source: new ol.source.XYZ({
@@ -126,6 +128,7 @@
           //   minResolution: 0,	
           //   maxResolution: 1400,
           visible: true,
+		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
         new ol.layer.Tile({//2d위성영상지도
           source: new ol.source.WMTS({
@@ -147,6 +150,7 @@
           //  maxResolution: 5,
           name: '위성사진',
           visible: false,
+		  attributions:['<a href="http://map.ngii.go.kr/img/process/ms/map/common/img_btoLogo3.png"</a>'],
         }),
         new ol.layer.Tile({//2d위성영상지도
           source: new ol.source.XYZ({
@@ -155,6 +159,7 @@
           }),
           name: '위성사진(2018)',
           visible: false,
+		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
         new ol.layer.Tile({//2d위성영상지도
           source: new ol.source.XYZ({
@@ -164,9 +169,10 @@
           // maxResolution: 5,
           name: '하이브리드',
           visible: false,
+		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
       ],
-      attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
+
       visible:true
     });
 
