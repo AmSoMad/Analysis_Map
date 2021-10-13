@@ -39,10 +39,10 @@
             title: "OSM",
             source: new ol.source.OSM(),
             baseLayer: false,
-            visible: false
+            visible: true
             }),
         ],
-        visible:false,
+        visible:true,
     });
 
     let carto_layers = new ol.layer.Group({
@@ -1081,17 +1081,6 @@ function showInfo(event, evt) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /**
  * 레이어 삭제함수
  * 기능 : String 에 일치하는 레이어를 삭제
@@ -1104,9 +1093,6 @@ function layerRemover(getName){
 		}
 	})
 }
-
-
-
 
 $(document).ready(function(){
   sgis_authkey();
