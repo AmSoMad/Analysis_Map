@@ -732,6 +732,7 @@ function vworld_wfs(evt){
                     }
                         wfs_html += "--------------------------------------<br>";
                         $('#wfs_result').html(wfs_html);
+			alert(wfs_html);
                 }
             },
             error: function(xhr, stat, err) {}
