@@ -823,6 +823,276 @@ function vworld_wfs(evt){
  });
 
 /**
+ * 클릭 이벤트 맵선택 맵클릭
+ * URL : 
+ * 참고사항 : 답이없다..
+ *  5179 x값과 y값을 Dist_Info()함수에 넘겨준다.
+ * 
+ */
+map.on('click', function (evt) {
+
+    var feature = map.forEachFeatureAtPixel(evt.pixel,
+        function (feature) {
+            return feature;
+        });
+	
+    vworld_wfs(evt);
+	
+    if (feature) {
+        var coordinates = feature.getGeometry().getCoordinates();
+        // https://www.hasudoinfo.or.kr/stat/selectPlant.do
+        // bscFctCd: 26290PB001R  //26290 시군구코드 발송하고 PB001R붙이면됌
+        var param = {
+            ADDR_1: "부산광역시 남구 용호동 12",
+            BSC_FCT_CLS_NM: "공공하수처리시설",
+            BSC_FCT_NM: "남부",
+            FCT_CPC: 340000,
+            GUGUN: "남구",
+            SIDO: "부산광역시",
+            SIT_AREA: 123399,
+            TEL: "051-713-0133",
+            TRT_DSTR_AREA: 4269,
+            TRT_END_HAN_NM: null,
+            TRT_FRF_HAN_NM: "MBR, MLE",
+            TRT_MOC_HAN_NM: "막 계열, A2O 계열",
+            
+        }
+        console.log(feature);
+    } else {
+	console.log(feature);
+    }
+
+    var p_5179 = proj4('EPSG:3857','EPSG:5179',[evt.coordinate[0],evt.coordinate[1]]);
+    var p_5174 = proj4('EPSG:3857','EPSG:5174',[evt.coordinate[0],evt.coordinate[1]]);
+    var p_5181 = proj4('EPSG:3857','EPSG:5181',[evt.coordinate[0],evt.coordinate[1]]);
+    var p_4326 = proj4('EPSG:3857','EPSG:4326',[evt.coordinate[0],evt.coordinate[1]]);
+    
+    Dist_Info(p_5174[0],p_5174[1],p_5179);
+
+    console.log('3857 : ' + evt.coordinate[0],evt.coordinate[1]);
+    console.log('4326 : ' + p_4326);
+    console.log('5179 : ' + p_5179);
+    console.log('5174 : ' + p_5174);
+    console.log('5181 : ' + p_5181);
+    //openapiTest6_WFS();
+    //Select_bld_cad(p_5174[1],p_5174[0],$("input[name=sido_nm]").val());
+    //Select_bld_info(p_5174[1],p_5174[0]);
+}, showInfo);
+
+/**
+ * 용도지역,지구,구역 확인 
+ * URL : 
+ * 참고사항 : 클릭 이벤트시 용도지역 160개 레이어를 3857좌표를 5174좌료로 변환후 ST_Intersects 함수활용
+ *  SELECT gid,	a0, a1,	a2, TO_CHAR(a3, 'YYYY-MM-DD') as a3, ST_transform(geom ,3857) FROM z_shp.al_00_d025_20210614 ad WHERE ST_Intersects(ad.geom , ST_GeomFromText('POINT('||#{loc_x}||'     '||#{loc_y}||')' , 5174))
+ * 
+ */
+function Dist_Info(loc_x, loc_y,p_5179){
+	//newsInput();
+	var param = {
+		'loc_x' : loc_x, 
+		'loc_y' : loc_y,
+	}
+
+	Reverse_GeoCodding(p_5179[0],p_5179[1],"10");
+	//building_info();
+
+	$.ajax({
+		type: "POST", 
+		url : "/location/dist_Info",
+		data : param,
+		success : function(result){
+			console.log(result);
+			if(result[0].a2 != '' || result[0].a2 != null || result[0].a2 != undefined){
+				var InnerResult = '';
+				for(var i = 0; i < result.length; i ++){
+					InnerResult += result[i].a2 + '<br>';
+				}
+				
+				//$('#dist_info').html(InnerResult);
+            
+			}else {
+				//notification.show('미확인 지역입니다.');
+			}
+		
+		},		
+	});
+}
+
+
+//쇼인포
+//showinfo 
+//hasOwnProperty 함수 활용할것
+//해당정보 탭에 보여줄때 사용
+
+/**
+ * showinfo 해당 feature 관련사항 DB 출력시 사용
+ * 기능 : Feature에 담긴 값에 따라 다르게 해줄것
+ * 참고사항 : 해당정보 탭에 보여줄때 사용
+ */
+
+var features_flag_danji = "";
+function showInfo(event, evt) {
+    var features = map.getFeaturesAtPixel(event.pixel);//Features 값은들어있다.
+    var innercontent ="";
+    //pdf객체 옵션
+    var option = {
+        height: "100%",
+        //pdfOpenParams: {view: 'FitV', page: '2'}
+    }
+    // var features = map.forEachFeatureAtPixel(event.pixel, function (features) {
+    //     return features;
+    // });
+    console.log(features);
+    if (features) {//geoserver 레이어 마우스Hover시 //산업단지레이어
+        if(features[0].j.hasOwnProperty('dan_id')){//postGIS에서는 소문자로 날라온다.
+            features[0].j.DAN_ID = features[0].j.dan_id;
+            features[0].j.DAN_NAME = features[0].j.dan_name;
+            features[0].j.DANJI_TYPE = features[0].j.danji_type;
+        }
+        if(features[0].j.hasOwnProperty('DAN_ID') && features[0].j.DAN_ID != features_flag_danji){//postGIS에서는 소문자로 날라온다.
+            features_flag_danji = features[0].j.DAN_ID;
+            $.ajax({
+                 url:'/location/danji_Limit',
+                 data:  {danji_code : features[0].j.DAN_ID},
+                 //dataType:'json',
+                 type:'post',
+                 cache:false,					
+                 success:function(data){
+                       $('#danji_info').html(data);
+                       $('#left_tab-2').html(data);
+                       
+
+                   },
+               error: function(xhr, stat, err) {},
+               complete:function(){},
+             });
+            try {
+                PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_1.pdf", "#myPdf",option);
+                //PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_2.pdf", "#myPdf2",option);
+                //PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_3.pdf", "#myPdf3",option);
+                //PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_1.pdf", "#left_myPdf",option);
+            } catch (error) {
+                console.log(error);
+                PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_1.hwp", "#myPdf",option);
+                //PDFObject.embed("/resources/sandan/"+features[0].j.DAN_ID+"/"+features[0].j.DAN_ID+"_1.hwp", "#left_myPdf",option);
+            }
+             
+        }
+        if(features[0].j.hasOwnProperty('content')){//postGIS에서는 소문자로 날라온다.
+            
+            if(features[0].j.content.hasOwnProperty('fac_no')){ //공장검색
+                if(features[0].j.content.fac_no && features[0].j.content.fac_no != features_flag_danji){
+                    features_flag_danji = features[0].j.content.fac_no;
+                    $.ajax({
+                        url:'/location/fac_info',
+                        data:  {
+                            "fac_no":  features[0].j.content.fac_no,
+                        },
+                        //dataType:'json',
+                        type:'post',
+                        cache:false,					
+                        success:function(data){
+                            //console.log(data);
+                            //$('#left_tab-1').html(data);
+                            $('#factory_info').html(data);
+                            
+
+                          },
+                      error: function(xhr, stat, err) {},
+                      complete:function(){},
+                    });
+                }
+            }else if(features[0].j.content.hasOwnProperty('category')){ // 하수처리시설 쇼인포
+                if(features[0].j.content.no && features[0].j.content.no != features_flag_danji){
+                    features_flag_danji = features[0].j.content.no;
+                    $.ajax({
+                        url:'/location/waste_fclty_info',
+                        data:  {
+                            "no": features[0].j.content.no,
+                        },
+                        //dataType:'json',
+                        type:'post',
+                        cache:false,					
+                        success:function(data){
+                            //console.log(data);
+                            //$('.left_cnt2').html(data);
+                            $('.waste_fclty_info').html(data);
+
+                          },
+                      error: function(xhr, stat, err) {},
+                      complete:function(){},
+                    });
+                }
+            }else if(features[0].j.content.hasOwnProperty('company_nm','c_number')){
+                if(features[0].j.content.no && features[0].j.content.no != features_flag_danji){
+                    features_flag_danji = features[0].j.content.no;
+                    $.ajax({
+                        url:'/location/supply_companies_info',
+                        data:  {
+                            "no": features[0].j.content.no,
+                            "c_number":features[0].j.content.c_number,
+                            "company_nm":features[0].j.content.company_nm,
+                        },
+                        //dataType:'json',
+                        type:'post',
+                        cache:false,					
+                        success:function(data){
+                            //console.log(data);
+                              $('.left_cnt6').html(data);
+                              
+                              //console.log("3");
+                          },
+                      error: function(xhr, stat, err) {},
+                      complete:function(){},
+                    });
+                }
+
+            }else{
+                if(features[0].j.content.no && features[0].j.content.no != features_flag_danji){// 폐기물처리 쇼인포
+                    features_flag_danji = features[0].j.content.no;
+                    $.ajax({
+                        url:'/location/swgtr_fclty_info',
+                        data:  {
+                            "no": features[0].j.content.no,
+                            "si": features[0].j.content.si,
+                            "gungu": features[0].j.content.gungu,
+                            "fclty": features[0].j.content.fclty,
+                        },
+                        //dataType:'json',
+                        type:'post',
+                        cache:false,					
+                        success:function(data){
+                            $('.left_cnt7').html(data);
+                            
+                            //console.log("3");
+                        },
+                    error: function(xhr, stat, err) {},
+                    complete:function(){},
+                    });
+                }
+            }
+
+        }
+        
+    }else{
+        console.log('aa');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
  * 레이어 삭제함수
  * 기능 : String 에 일치하는 레이어를 삭제
  * 참고사항 : 레이어를 추가할경우 항상 이름을 붙여줄것 
@@ -834,6 +1104,8 @@ function layerRemover(getName){
 		}
 	})
 }
+
+
 
 
 $(document).ready(function(){
