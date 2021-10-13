@@ -106,16 +106,6 @@
         right: 0;
       }
 
-      .ol-overlay.menu {	
-        width: 30%;
-        background: #fff;
-        color: #333;
-        box-shadow: 0px 0px 5px #000;
-        padding: 0.5em;
-        -webkit-transition: all 0.25s;
-        transition: all 0.25s;
-      }
-
      /* 팝업 */
       .ol-popup {
         position: absolute;
