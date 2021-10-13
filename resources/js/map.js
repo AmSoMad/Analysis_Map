@@ -2,7 +2,7 @@
     proj4.defs('EPSG:4326', '+proj=longlat +datum=WGS84 +no_defs');
     //ol.proj.proj4.register(proj4);
 
-    var naver_map_version = '1630584268'
+    var naver_map_version = '1633594662'
     let newProj = ol.proj.get('EPSG:3857'); // 사용 좌표계
     //let newProj = ol.proj.get('EPSG:4326'); // 사용 좌표계
     let newProjExtent = newProj.getExtent(); // 지도의 범위
