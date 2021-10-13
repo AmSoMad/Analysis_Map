@@ -172,8 +172,12 @@
 		  attributions:['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>'],
         }),
       ],
-
-      visible:true
+      visible:true,
+      attributions: [
+          new ol.control.Attribution({
+            html: ['<a href="https://map.vworld.kr/images/maps/logo_openplatform.png"</a>']
+          })
+        ],
     });
 
     let ncp_Naver_Satellite_Group = new ol.layer.Group({
@@ -184,7 +188,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/basic/' + naver_map_version + '/{z}/{x}/{y}.png?mt=bg.ol.ts.lko',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 배경지도',
             visible: true,
@@ -194,7 +198,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/terrain/' + naver_map_version + '/{z}/{x}/{y}.png?mt=bg.ol.ts.lko&crs=EPSG:3857',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 지형지도',
             visible: false,
@@ -204,7 +208,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/satellite/' + naver_map_version + '/{z}/{x}/{y}.png?mt=bg.ol.ts.lko&crs=EPSG:3857',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 위성지도',
             visible: false,
@@ -214,7 +218,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/basic/' + naver_map_version + '/{z}/{x}/{y}.png?mt=bg.ol.ts.lp&crs=EPSG:3857',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 용도구역(base)',
             visible: false,
@@ -224,7 +228,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/satellite/' + naver_map_version + '/{z}/{x}/{y}.png?mt=bg.ol.ts.lp&crs=EPSG:3857',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 용도구역(위성)',
             visible: false,
@@ -234,7 +238,7 @@
             source: new ol.source.XYZ({
               url: 'https://map.pstatic.net/nrb/styles/basic/' + naver_map_version + '/{z}/{x}/{y}.png?mt=ctt&crs=EPSG:3857',
               format: new ol.format.GeoJSON,
-              attributions: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>'],
+              attributions: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>'],
             }),
             name: '네이버 도로교통',
             visible: true,
@@ -245,7 +249,7 @@
         visible: false,
         attributions: [
           new ol.control.Attribution({
-            html: ['<a href="http://map.naver.com"><img src="http://static.naver.net/maps2/logo_naver_s.png"></a>']
+            html: ['<a href="https://navercorp.com" target="_blank" style="color: inherit; text-decoration: none;">NAVER</a>']
           })
         ]
       });
