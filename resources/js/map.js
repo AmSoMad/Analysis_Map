@@ -2,6 +2,10 @@
     proj4.defs('EPSG:4326', '+proj=longlat +datum=WGS84 +no_defs');
     //ol.proj.proj4.register(proj4);
 
+    const container = document.getElementById('popup');
+    const content = document.getElementById('popup-content');
+    const closer = document.getElementById('popup-closer');
+
     var naver_map_version = '1633594662'
     let newProj = ol.proj.get('EPSG:3857'); // 사용 좌표계
     //let newProj = ol.proj.get('EPSG:4326'); // 사용 좌표계
@@ -294,6 +298,20 @@
       undefinedHTML: '&nbsp;'
     });
 
+	const overlay = new ol.Overlay({
+	  element: container,
+	  autoPan: true,
+	  autoPanAnimation: {
+		duration: 250,
+	  },
+	});
+
+	closer.onclick = function () {
+	  overlay.setPosition(undefined);
+	  closer.blur();
+	  return false;
+	};
+
     var map = new ol.Map({
       target: 'map',
       layers: [
@@ -301,6 +319,7 @@
       ],
       view: olView,
       interactions: ol.interaction.defaults({ altShiftDragRotate:true, pinchRotate:true }),
+	  overlay : overlay,
       controls: ol.control.defaults().extend(
       [
           //new ol.control.FullScreen({source:'fullscreen',}),
@@ -319,7 +338,7 @@
       ]),
     });
 
-    // 오버레이
+    // 오버레이 컨트롤메뉴
     var menu = new ol.control.Overlay ({ 
       closeBox : true, 
       className: "slide-left menu", 
@@ -507,8 +526,6 @@ function flyTo(location, done) {
 		"consumer_key" : cunsumer_key,
 		"consumer_secret" : consumer_secret,
 	}
-	
-	
 	$.ajax({
 		type: "GET", 
 		//url : "/location/Reverse_GeoCodding",
@@ -548,7 +565,6 @@ function sgis_populations(sigunguCode){
         adm_cd : '',
         low_search : '1',  //default : 1
     }
-
     $.ajax({
 		type: "GET", 
 		//url : "/location/Reverse_GeoCodding",
@@ -558,8 +574,6 @@ function sgis_populations(sigunguCode){
 		success : function(getResult){
 			console.log(getResult);
 			alert(getResult);
-			
-
 		},		
 	});	
 }
@@ -732,7 +746,12 @@ function vworld_wfs(evt){
                     }
                         wfs_html += "--------------------------------------<br>";
                         $('#wfs_result').html(wfs_html);
-			alert(wfs_html);
+						//alert(wfs_html);
+					  const coordinate = evt.coordinate;
+					  const hdms = toStringHDMS(toLonLat(coordinate));
+
+					  content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code><br>' + wfs_html;
+					  overlay.setPosition(coordinate);
                 }
             },
             error: function(xhr, stat, err) {}
@@ -920,12 +939,6 @@ function Dist_Info(loc_x, loc_y,p_5179){
 		},		
 	});
 }
-
-
-//쇼인포
-//showinfo 
-//hasOwnProperty 함수 활용할것
-//해당정보 탭에 보여줄때 사용
 
 /**
  * showinfo 해당 feature 관련사항 DB 출력시 사용
