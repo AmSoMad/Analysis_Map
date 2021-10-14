@@ -748,8 +748,7 @@ function vworld_wfs(evt){
                         $('#wfs_result').html(wfs_html);
 						//alert(wfs_html);
 					  const coordinate = evt.coordinate;
-					  const hdms = toStringHDMS(toLonLat(coordinate));
-
+					  //const hdms = toStringHDMS(toLonLat(coordinate));
 					  content.innerHTML = '<p>선택한 레이어정보 : </p><code>' + wfs_html + '</code><br>';
 					  overlay.setPosition(coordinate);
                 }
