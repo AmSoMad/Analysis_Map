@@ -750,7 +750,7 @@ function vworld_wfs(evt){
 					  const coordinate = evt.coordinate;
 					  const hdms = toStringHDMS(toLonLat(coordinate));
 
-					  content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code><br>' + wfs_html;
+					  content.innerHTML = '<p>선택한 레이어정보 : </p><code>' + wfs_html + '</code><br>';
 					  overlay.setPosition(coordinate);
                 }
             },
