@@ -1,5 +1,5 @@
 # Portfolio 
-[일부기능 구현중인 화면][https://amsomad.github.io/portfolio/]
+[일부기능 구현중인 화면][http://amsomad.com/]
 ## 뚝딱뚝딱 제작중.
 
 - 현재 적용된 기능
