@@ -280,6 +280,30 @@
                         </select>
                     </div>
                 </div>
+                <div>
+              		<ul class="row bt_wrap">
+                    <li class="col-xs-12"><label><span><a href="/resources/file/Sample_Data.xlsx" target="_blank"><i class="xi-file-download-o"></i>엑셀 업로드 양식 다운로드(샘플)</a></span></label></li>
+                    <li class="col-xs-6"><label><input type="radio" name="addr" value="road"><span class="radio_input_span">도로명주소</span></label></li>
+                    <li class="col-xs-6"><label><input type="radio" name="addr" value="parcel"><span class="radio_input_span">지번주소</span></label></li>
+                    <li class="col-xs-8">
+                      <input type="text" placeholder="엑셀파일을 첨부해주세요" id="excel_address" name="excel_address" aria-haspopup="true" aria-expanded="false" autocomplete="off" value="파일첨부를 해주세요." onclick="excelUpload_function();">
+                      <input type="file" id="file_3" class="hidden file_3" onchange="input_ReadExcel()">
+                    </li>
+                    <li class="col-xs-2">
+                        <button type="button" class="btn_line" onclick="readExcel_Marker($('input:radio[name=addr]:checked').val())" value="데이터변환"><i class="xi-exchange"></i>
+                        </button>
+                    </li>
+                    <li class="col-xs-2">
+                      <button type="button" id="add_marker_btn" class="btn_line" onclick="add_Feature_Marker($('input:radio[name=addr]:checked').val())" value="지도에추가"><i class="xi-search"></i>
+                      </button>
+                    </li>
+                    <li class="col-xs-12">
+                      <div id="progressbar" class="" style="height: 10px;"></div>
+                    </li>
+                    <li class="hidden" id="count1"><label><input type="radio" name="read_count" value=""><span id="read_count" class="radio_input_span">총 갯수 : 0</span></label></li>
+                    <li class="hidden" id="count2"><label><input type="radio" name="exc_count" value=""><span id="exc_count" class="radio_input_span">변환 갯수 : 0</span></label></li>
+                  </ul>
+                </div>
             </div>
         
     </div>
