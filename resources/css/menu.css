@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+header        { position: relative; text-align: center; border-bottom: 1px solid #d9d9d9; }
+/* header .logo  { padding: 10px 0 5px 0; } */
+header .logo  { padding: 4px 0 5px 0; }
+header .gnb   { position: absolute; top: 10px; right: 10px; }
+header .gnb a { display: inline-block; line-height: 30px; }
+header .gnb a:hover { opacity: 0.8; }
+
+header .menu > li     { display: inline-block; cursor: pointer; }
+header .menu > li > button { display: inline-block; padding: 0 10px; height: 40px; border-radius: 0; }
+header .menu > li > .on, header .menu > li > button:hover { color: #fff; background: #009b77; }
+header .menu > li:hover .sub_menu{ display: block; }
+
+header .sub_menu 	 { display: none; position: absolute; top: 84; left: 0; z-index: 700; width: 100%; padding: 10px 0; border-top: 1px solid #d9d9d9; background: #fff; box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2); }
+/* header .sub_menu div { width: 790px; margin: 0 auto; font-size: 0; text-align: left; } */
+header .sub_menu div { width: 1060px; margin: 0 auto; font-size: 0; text-align: left; }
+/* header .sub_menu div { width: 1060px; margin: 0 auto; font-size: 0; text-align: left; display: inline-block; text-align: center;} */
+/* header .sub_menu ul { display: inline-block; width: 20%; font-size: 16px; vertical-align: top; } */
+header .sub_menu ul { display: inline-block; width: 30%; font-size: 16px; vertical-align: top; }
+header .sub_menu button { text-align: left; height: auto; line-height: 1.2em; padding: 5px; }
+header .sub_menu button:hover, header .on { color: #009b77; }
+
+header .logo02 { float: left; padding: 10px 20px; }
+
+header .gnb02 { padding: 5px 20px; text-align: right; border-bottom: 1px solid #d9d9d9; }
+
+header .menu02 { padding: 0 50px; }
+header .menu02 > li     { display: inline-block; cursor: pointer; }
+header .menu02 > li > button { display: inline-block; padding: 0 10px; height: 50px; }
+header .menu02 > li > .on, header .menu > li > button:hover { color: #fff; background: #009b77; }
+header .menu02 > li:hover .sub_menu{ display: block; }
+
+header .top_search { display: inline-block; padding: 0 10px; height: 40px; line-height: 40px; }
+
+header .top_search_wrap { display: none; position: absolute; top: 85px; left: 0; z-index: 700; width: 100%; padding: 10px 0; border-top: 1px solid #d9d9d9; background: #fff; box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2); }
+header .top_search_wrap div { width: 1000px; margin: 0 auto; }
+header .top_search_wrap th { padding: 10px 0 0 0; vertical-align: top; color: #009b77; }
+header .top_search_wrap td { vertical-align: top; text-align: left; padding: 0 0 10px 0; }
+header .top_search_wrap td p { display: inline-block; padding: 5px 10px 0 10px; }
+header .top_search_wrap td span:hover, header .top_search_wrap td .on { border-bottom: 1px solid #009b77; }
+header .top_search_wrap td li { padding-top: 5px; }
+header .top_search_wrap .btn_wrap { padding: 10px 0; }
+header .top_search_wrap .btn_wrap button { width: 150px; border-radius: 40px; }
+
+/* 추가 */
+
+header .sub_menu .notInputBtn:hover { color: #F23847; }
+
+
+.xi-close-thin:hover { color: #F23847; }
