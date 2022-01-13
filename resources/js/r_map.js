@@ -1,5 +1,4 @@
 //var GeoAddr = "http://192.168.0.5:8080";
-//var GeoAddr = "http://2be73c0b97bf.ngrok.io";
 var GeoAddr = "http://localhost:8080";
 var naver_map_version = '1641459092'
 
@@ -28,6 +27,7 @@ let BaseLayer = new ol.layer.Tile({
     //   maxResolution: 1400,
 	  
 });
+
 
 
 let GrayLayer = new ol.layer.Tile({
