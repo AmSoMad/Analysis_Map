@@ -1115,6 +1115,264 @@ sgis_authkey();
 });
 
 
+/**
+ * 엑셀읽기
+ * readExcel
+ * 참고사항 : 여러가질 해야함.
+ * 양식 : 
+ * @param {String} col1 
+ * @param {String} col2 
+ * @param {String} col3 
+ * @param {String} fac_addr 주소 필수
+ * 
+ * 
+ */
+ var geo_index = new Array();
+ var geo_result = [];
+ var cnt = 0;
+ var cnt2 = 1000;
+
+ 
+ function callSearch_Addr(addr,col1,col2,col3){
+    let  value = addr;
+    let  search_data = "service=search&version=2.0&request=search&key=CEB52025-E065-364C-9DBA-44880E3B02B8&format=json&size=1&page=1&type=address&category=parcel&crs=EPSG:3857";
+    search_data += "&query="+value
+    
+    $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/search",
+            data : search_data,
+            dataType: 'jsonp',
+            async: false,
+            success: function(data) {
+                //let  features = new Array();
+                //let  features = '';
+                try{
+                    for(let  o in data.response.result.items){ 
+                        //Feature 객체에 저장하여 활용 
+                        // features[o] = new ol.Feature({
+                        //     geometry: new ol.geom.Point([data.response.result.items[o].point.x*1,data.response.result.items[o].point.y*1]),
+                        //     title: data.response.result.items[o].title,
+                        //     parcel: data.response.result.items[o].address.parcel,
+                        //     road: data.response.result.items[o].address.road,
+                        //     category: data.response.result.items[o].category,
+                        //     point: data.response.result.items[o].point,
+                        //     시설명:col1,
+                        //     주소:addr,
+                        //     주요정보:col2,
+                        //     연락처:col3,
+                        // });
+                        // features[o].set("id",data.response.result.items[o].id);
+                        var features = new ol.Feature({
+                            geometry: new ol.geom.Point([data.response.result.items[o].point.x*1,data.response.result.items[o].point.y*1]),
+                            title: data.response.result.items[o].title,
+                            parcel: data.response.result.items[o].address.parcel,
+                            road: data.response.result.items[o].address.road,
+                            category: data.response.result.items[o].category,
+                            point: data.response.result.items[o].point,
+                            시설명:col1,
+                            주소:addr,
+                            주요정보:col2,
+                            연락처:col3,
+                        });
+                        features.set("id",data.response.result.items[o].id);
+                        features.set("input_type",'excel');
+                        geo_index.push(features);
+                        // geo_result.push({
+                        //     시설명:col1,
+                        //     주소:addr,
+                        //     주요정보:col2,
+                        //     연락처:col3,
+                            // col1:col1,
+                            // col2:col2,
+                            // col3:col3,
+                            //fac_addr:addr,
+                            //title:geo_index[cnt][0].j.title,
+                            //parcel : geo_index[cnt][0].j.parcel,
+                            //road:geo_index[cnt][0].j.road,
+                            //category:geo_index[cnt][0].j.category,
+                            //point:geo_index[cnt][0].j.point,
+                            //x:geo_index[cnt][0].j.point.x,
+                            //y:geo_index[cnt][0].j.point.y,
+                            // loc_x:geo_index[cnt][0].j.point.x,
+                            // loc_y:geo_index[cnt][0].j.point.y,
+                            // etc1:'',
+                            // etc2:'',
+                            // etc3:'',
+                            // etc4:'',
+                            // etc5:'',
+                        //});
+                        //cnt++;
+                        // if(cnt == cnt2){
+                        //     console.log(cnt2 +'개 돌파');
+                        //     cnt2 += 1000;
+                        // }
+
+                        // if(cnt == excelResult.length-1){
+                        //     alert('변경완료');
+                        //     console.log(geo_result);
+                        //     downloadCSV(geo_result);
+                        // }
+                    }
+                }catch (err){
+                   
+                }
+            },
+    });
+}    
+function callSearch_Addr_road(addr,col1,col2,col3){
+    let  value = addr;
+    let  search_data = "service=search&version=2.0&request=search&key=CEB52025-E065-364C-9DBA-44880E3B02B8&format=json&size=1&page=1&type=address&category=road&crs=EPSG:3857";
+    search_data += "&query="+value
+    
+    $.ajax({
+            type: "get",
+            url: "https://api.vworld.kr/req/search",
+            data : search_data,
+            dataType: 'jsonp',
+            async: false,
+            success: function(data) {
+                //let  features = new Array();
+                try{
+                    for(let  o in data.response.result.items){ 
+                        //Feature 객체에 저장하여 활용 
+                        var features = new ol.Feature({
+                            geometry: new ol.geom.Point([data.response.result.items[o].point.x*1,data.response.result.items[o].point.y*1]),
+                            title: data.response.result.items[o].title,
+                            parcel: data.response.result.items[o].address.parcel,
+                            road: data.response.result.items[o].address.road,
+                            category: data.response.result.items[o].category,
+                            point: data.response.result.items[o].point,
+                            시설명:col1,
+                            주소:addr,
+                            주요정보:col2,
+                            연락처:col3,
+                        });
+                        features.set("id",data.response.result.items[o].id);
+                        features.set("input_type",'excel');
+                        geo_index.push(features);
+                        //cnt++;
+                        // if(cnt == cnt2){
+                        //     console.log(cnt2 +'개 돌파');
+                        //     cnt2 += 1000;
+                        // }
+
+                        // if(cnt == excelResult.length-1){
+                        //     alert('변경완료');
+                        //     console.log(geo_result);
+                        //     downloadCSV(geo_result);
+                        // }
+                    }
+                }catch (err){
+                   
+                }
+            },
+    });
+}    
+
+var excelResult = '';
+var Input_excelResult = [];
+
+function readExcel(category) {
+    console.log(category);
+    let input = event.target;
+    let reader = new FileReader();
+    reader.onload = function () {
+        let data = reader.result;
+        let workBook = XLSX.read(data, { type: 'binary' });
+        workBook.SheetNames.forEach(function (sheetName) {
+            console.log('SheetName: ' + sheetName);
+            let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+            excelResult = rows;
+            console.log(JSON.stringify(rows[0]));
+            console.log(excelResult.length);
+
+            if(category == 'road'){
+                for(var i = 0; i < excelResult.length; i++){
+                    if(!excelResult[i].col2){
+                        excelResult[i].col2 = '';
+                    }
+                    callSearch_Addr_road(excelResult[i].fac_addr,excelResult[i].col1, excelResult[i].col2, excelResult[i].col3);
+    
+                };
+            }else if(category == 'parcel'){
+                for(var i = 0; i < excelResult.length; i++){
+                    if(!excelResult[i].col2){
+                        excelResult[i].col2 = '';
+                    }
+                    callSearch_Addr(excelResult[i].fac_addr,excelResult[i].col1, excelResult[i].col2, excelResult[i].col3);
+    
+                };
+            }else{
+                console.log('빠짐');
+            }
+            
+
+             
+        })
+    };
+    
+    reader.readAsBinaryString(input.files[0]);
+    
+}    
+// 이것과 
+// for (let row of this.rows) {
+//     if (!row.selected) {
+//         this.selectAllChecked = false;
+//         break;
+//     }
+// }
+// 이건 수행이 같다.
+// this.selectAllChecked = this.rows.every(row => row.selected);
+
+
+function downloadCSV(arrayToCSV){
+
+
+    // col1:col1,
+    // col2:col2,
+    // col3:col3,
+    // fac_addr:addr,
+    // title:geo_index[cnt][0].j.title,
+    // parcel : geo_index[cnt][0].j.parcel,
+    // road:geo_index[cnt][0].j.road,
+    // category:geo_index[cnt][0].j.category,
+    // point:geo_index[cnt][0].j.point,
+    // x:geo_index[cnt][0].j.point.x,
+    // y:geo_index[cnt][0].j.point.y,
+    var a = "";
+    $.each(arrayToCSV, function(i, item){
+        a += item.col1 + "," + 
+        item.col2 + "," + 
+        item.col3 + "," + 
+        item.fac_addr + "," + 
+        item.title + "," + 
+        item.parcel + "," + 
+        item.road + "," + 
+        item.category + "," + 
+        item.point + "," + 
+        item.x + "," + 
+        item.y + "," + 
+        "\r\n";
+    });
+
+    // jquery 사용하지 않는 경우
+    /* for(var i=0; i<array.length; i++){
+        a += array[i].name + "," + array[i].age + "," + array[i].test + "\r\n";
+    } */
+
+    var downloadLink = document.createElement("a");
+    var blob = new Blob([a], { type: "text/csv;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = "Convert_data.csv";
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+}
+
  /**
  * 포인트마크 마커등록함수
  * URL : 
