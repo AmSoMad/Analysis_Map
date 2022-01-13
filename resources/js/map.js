@@ -6,7 +6,7 @@
     const content = document.getElementById('popup-content');
     const closer = document.getElementById('popup-closer');
 
-    var naver_map_version = '1639647212'
+    var naver_map_version = '1641459092'
     let newProj = ol.proj.get('EPSG:3857'); // 사용 좌표계
     //let newProj = ol.proj.get('EPSG:4326'); // 사용 좌표계
     let newProjExtent = newProj.getExtent(); // 지도의 범위
