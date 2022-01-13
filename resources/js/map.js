@@ -1200,6 +1200,7 @@ var xhr_cnt = 0;
 var read_excelLength = 0;
 let excel_col_array = [];
 var workbook_excel = '';
+var Input_excelResult = [];
 const timer = ms => new Promise(res=>setTimeout(res,ms));
 function input_ReadExcel() {
     console.log('리드엑셀마커 ');
