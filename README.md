@@ -5,6 +5,7 @@
 - 현재 적용된 기능
    - geocode 클릭시 해당위치의 주소 알림출력
    - 주소검색 후 해당위치로 이동
+   - 첨부파일 양식에 맞춰 주소를 지오코더로 변환하여 마커등록(지번, 도로명) 각각따로
    - Vworld 레이어 출력 및 해당레이어 정보 출력
 
 ### 구현하고보니. 회사의 것이다. 
@@ -22,8 +23,8 @@
   - [OL-ext][https://viglino.github.io/ol-ext/]
   - [다음주소api][https://postcode.map.daum.net/guide]
   - [pdfobject][https://pdfobject.com/]
-  - [bootstrap5][https://getbootstrap.com/] (5버전부터 jQuery 없이 구동, 일부 명칭이 바뀜)
-  - 
+  - [bootstrap5][https://getbootstrap.com/] 
+  
 
 
 
