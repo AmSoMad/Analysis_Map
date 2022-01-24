@@ -19,7 +19,7 @@
 ##### 추가예정 
 
 - 사용된 라이브러리 
-  - [OpenLayers6][https://openlayers.org/] (현재 6.8.1 까지나왔다)
+  - [OpenLayers6][https://openlayers.org/] 
   - [OL-ext][https://viglino.github.io/ol-ext/]
   - [다음주소api][https://postcode.map.daum.net/guide]
   - [pdfobject][https://pdfobject.com/]
